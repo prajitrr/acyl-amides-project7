@@ -54,6 +54,8 @@ def gnps_retrieve(url, file_label):
 
     :param str url: URL to a GNPS2 job query
     :param str file_label: A label used to uniquely identify the file
+    :return: The number of scans in the result file; returns 0 for empty files
+    :rtype: int
     """
     task_ID = url[url.find("task=") + 5:]
     processed_url = ("https://gnps2.org/resultfile?task=" + task_ID 
@@ -61,3 +63,4 @@ def gnps_retrieve(url, file_label):
     r = requests.get(processed_url, allow_redirects=True)
     file_name = "gnps_" + "queried_file" + file_label + ".tsv"
     open(file_name, "wb").write(r.content)
+    return len(pd.DataFrame(r.content))
