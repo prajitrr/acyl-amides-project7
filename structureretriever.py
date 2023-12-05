@@ -1,4 +1,4 @@
-#Receives a list of molecules and outputs a datframe with SMILES and links
+#Receives a list of molecules and outputs a dataframe with SMILES and links
 #to structure drawings of the molecules
 #Note that you may have to expand some names in the input to their long form 
 #(eg GABA -> Gamma aminobutyric acid)
