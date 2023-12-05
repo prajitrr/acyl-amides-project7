@@ -15,8 +15,9 @@ def retriever(list_of_names):
     """
     Retrieve the SMILES ID and images of a specified list of molecules.
 
-    :param list list_of_names: List of n molecules, preferably using IUPAC 
-                               naming conventions
+    :param list_of_names: List of n molecules, preferably using IUPAC 
+                          naming conventions
+    :type list_of_names: list[str] or None
     :return: An n by 3 dataframe containing the SMILES IDs and images 
              of each molecule
     :rtype: pandas.core.frame.DataFrame
