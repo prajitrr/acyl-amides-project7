@@ -26,8 +26,9 @@ def prot2_retrieve(url, file_label, wait_time=10):
     :return: The number of scans in the result file; returns 0 for empty files
     :rtype: int
     """
-    load_url = requests.get(url, allow_redirects=True)
-    with urlopen(url):
+    dataset_loader = url + "&view=extract_results
+    load_url = requests.get(dataset_loader, allow_redirects=True)
+    with urlopen(dataset_loader):
         time.sleep(wait_time)
     task_ID = url[url.find("task=") + 5:]
     processed_url = ("https://proteomics2.ucsd.edu/ProteoSAFe/" 
