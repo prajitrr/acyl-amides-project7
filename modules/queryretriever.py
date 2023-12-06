@@ -31,6 +31,8 @@ def prot2_retrieve(url, file_label):
         site_text = opened_dataset.read().decode("UTF-8")
         if "Hits 1" in site_text:
             not_loaded = False
+        else if "Job failed due to" in site_text:
+            return 0
     with urlopen(dataset_loader):
         time.sleep(wait_time)
     task_ID = url[url.find("task=") + 5:]
