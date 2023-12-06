@@ -16,7 +16,7 @@ from urllib.request import urlopen
 
 def prot2_retrieve(url, file_label):
     """
-    Download the result file from a Proteomics2 job query in tsv format.
+    Retrieve the result file from a Proteomics2 job query in tsv format.
 
     :param str url: URL to a Proteomics2 job query
     :param str file_label: A label used to uniquely identify the file
@@ -26,19 +26,17 @@ def prot2_retrieve(url, file_label):
     dataset_loader = url + "&view=extract_results"
     load_url = requests.get(dataset_loader, allow_redirects=True)
     not_loaded = True
-    while True:
+    while not_loaded:
         opened_dataset = urlopen(dataset_loader)
         site_text = opened_dataset.read().decode("UTF-8")
-        if "Hits 1" in site_text:
+        if "cellpadding=\"" in site_text:
             not_loaded = False
-        else if "Job failed due to" in site_text:
+        elif "Job failed due to" in site_text:
             return 0
-    with urlopen(dataset_loader):
-        time.sleep(wait_time)
     task_ID = url[url.find("task=") + 5:]
-    processed_url = ("https://proteomics2.ucsd.edu/ProteoSAFe/" 
+    processed_url = ("https://proteomics2.ucsd.edu/ProteoSAFe/"
                      + "QueryResult?task=" + task_ID + "&file=extract_results"
-                     + "-main_dynamic_extracted.db&pageSize=" 
+                     + "-main_dynamic_extracted.db&pageSize="
                      + "-1&offset=0&query=&_=")
     r = requests.get(processed_url, allow_redirects=True)
     page = r.content
