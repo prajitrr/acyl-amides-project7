@@ -28,6 +28,11 @@ def prot2_retrieve(url, file_label, wait_time=10):
     """
     dataset_loader = url + "&view=extract_results"
     load_url = requests.get(dataset_loader, allow_redirects=True)
+    while True:
+        urlopen(dataset_loader)
+        site_text = resource.read().decode("UTF-8")
+        if "Hits 1" in site_text:
+            break
     with urlopen(dataset_loader):
         time.sleep(wait_time)
     task_ID = url[url.find("task=") + 5:]
