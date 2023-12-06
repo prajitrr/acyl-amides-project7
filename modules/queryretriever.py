@@ -14,15 +14,12 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-def prot2_retrieve(url, file_label, wait_time=10):
+def prot2_retrieve(url, file_label):
     """
-    Retrieve the result file from a Proteomics2 job query in tsv format.
+    Download the result file from a Proteomics2 job query in tsv format.
 
     :param str url: URL to a Proteomics2 job query
     :param str file_label: A label used to uniquely identify the file
-    :param int wait_time: Time to wait to allow the result file to load 
-                          in; change as necessary based on result file 
-                          sizes, defaults to 10
     :return: The number of scans in the result file; returns 0 for empty files
     :rtype: int
     """
@@ -56,7 +53,7 @@ def prot2_retrieve(url, file_label, wait_time=10):
 
 def gnps_retrieve(url, file_label):
     """
-    Retrieve the result file from a GNPS2 job query in tsv format.
+    Download the result file from a GNPS2 job query in tsv format.
 
     :param str url: URL to a GNPS2 job query
     :param str file_label: A label used to uniquely identify the file
