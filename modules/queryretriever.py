@@ -26,7 +26,7 @@ def prot2_retrieve(url, file_label, wait_time=10):
     :return: The number of scans in the result file; returns 0 for empty files
     :rtype: int
     """
-    dataset_loader = url + "&view=extract_results
+    dataset_loader = url + "&view=extract_results"
     load_url = requests.get(dataset_loader, allow_redirects=True)
     with urlopen(dataset_loader):
         time.sleep(wait_time)
