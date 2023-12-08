@@ -14,26 +14,37 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-def prot2_retrieve(url, file_label, wait_time=10):
+def prot2_retrieve(url, file_label):
     """
     Retrieve the result file from a Proteomics2 job query in tsv format.
-
+    
     :param str url: URL to a Proteomics2 job query
     :param str file_label: A label used to uniquely identify the file
-    :param int wait_time: Time to wait to allow the result file to load 
-                          in; change as necessary based on result file 
-                          sizes, defaults to 10
     :return: The number of scans in the result file; returns 0 for empty files
     :rtype: int
     """
-    dataset_loader = url + "&view=extract_results"
-    load_url = requests.get(dataset_loader, allow_redirects=True)
-    with urlopen(dataset_loader):
-        time.sleep(wait_time)
     task_ID = url[url.find("task=") + 5:]
-    processed_url = ("https://proteomics2.ucsd.edu/ProteoSAFe/" 
-                     + "QueryResult?task=" + task_ID + "&file=extract_results"
-                     + "-main_dynamic_extracted.db&pageSize=" 
+    dataset_loader = ("https://proteomics2.ucsd.edu/ProteoSAFe/" 
+                      + "result.jsp?task=" 
+                      + task_ID 
+                      + "&view=extract_results"
+                      )
+    load_url = requests.get(dataset_loader, allow_redirects=True)
+    not_loaded = True
+    while not_loaded:
+        opened_dataset = urlopen(dataset_loader)
+        site_text = opened_dataset.read().decode("UTF-8")
+        if "cellpadding=\"" in site_text:
+            #print(site_text)
+            not_loaded = False
+        elif "Job failed due to" in site_text:
+            #print(site_text)
+            return 0
+    processed_url = ("https://proteomics2.ucsd.edu/ProteoSAFe/"
+                     + "QueryResult?task=" 
+                     + task_ID 
+                     + "&file=extract_results"
+                     + "-main_dynamic_extracted.db&pageSize="
                      + "-1&offset=0&query=&_=")
     r = requests.get(processed_url, allow_redirects=True)
     page = r.content
@@ -51,7 +62,7 @@ def prot2_retrieve(url, file_label, wait_time=10):
 
 def gnps_retrieve(url, file_label):
     """
-    Retrieve the result file from a GNPS2 job query in tsv format.
+    Download the result file from a GNPS2 job query in tsv format.
 
     :param str url: URL to a GNPS2 job query
     :param str file_label: A label used to uniquely identify the file
