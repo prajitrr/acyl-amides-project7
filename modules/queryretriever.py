@@ -10,7 +10,7 @@ import ast
 import numpy as np
 import pandas as pd
 import requests
-from urllib.request import urlopen
+from io import BytesIO
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
@@ -75,4 +75,4 @@ def gnps_retrieve(url, file_label):
     r = requests.get(processed_url, allow_redirects=True)
     file_name = "gnps_" + "queried_file" + file_label + ".tsv"
     open(file_name, "wb").write(r.content)
-    return len(pd.DataFrame(r.content))
+    return len(pd.read_csv(BytesIO(r.content), sep='\t'))
