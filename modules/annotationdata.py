@@ -185,6 +185,8 @@ acyl_group_names = {
 head_masses = {
     'Phenylalanine': 166.0863,
     'Alanine': 90.055,
+    'Alanine-Sarcosine': 90.055,
+    'Sarcosine': 90.055,
     'Aminoadipic acid': 162.0761,
     'Aminoadipic-acid': 162.0761,
     'Amyl amine': 88.1121,
