@@ -2,7 +2,7 @@
 #Selenium setup will be different if run if a different environment
 #Selenium setup obtained from https://github.com/googlecolab/colabtools/issues/3347
 
-# Commented out IPython magic to ensure Python compatibility.
+# Commented out IPython magic to ensure Python compatibility. Uncomment if running in Google Colab.
 # %%shell
 # sudo apt -y update
 # sudo apt install -y wget curl unzip
@@ -15,11 +15,11 @@
 # unzip -o /tmp/chromedriver_linux64.zip -d /tmp/
 # chmod +x /tmp/chromedriver
 # mv /tmp/chromedriver /usr/local/bin/chromedriver
-# pip install selenium
+
 
 #Note that you may have to install some of the imports using
 #pip or another installer
-
+!pip install selenium
 !pip install chromedriver-autoinstaller
 
 import sys
