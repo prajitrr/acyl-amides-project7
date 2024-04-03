@@ -148,7 +148,7 @@ acyl_group_names = {
     'C8:0': 'Octanoyl',
     'C9:0': 'Nonanoyl',
     'C10:0': 'Decanoyl',
-    'C2:1': 'Acrylic',
+    'C2:1': 'Acryl',
     'C3:1': 'Propenoyl',
     'C4:1': 'Butenoyl',
     'C5:1': 'Pentenoyl',
